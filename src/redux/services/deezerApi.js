@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const deezerApi = createApi({
   reducerPath: 'deezerApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://cors-anywhere-production-d96e.up.railway.app/https://api.deezer.com/',
+    const baseUrl = "https://lyriks-arfin.vercel.app/api/proxy";
   }),
   endpoints: (builder) => ({
     // Global Top Charts
