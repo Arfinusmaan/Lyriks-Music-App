@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const deezerApi = createApi({
   reducerPath: 'deezerApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://api.allorigins.win/raw?url=https://api.deezer.com/',
+    baseUrl: 'https://api.codetabs.com/v1/proxy/?quest=https://api.deezer.com/',
   }),
   endpoints: (builder) => ({
     getTopCharts: builder.query({
