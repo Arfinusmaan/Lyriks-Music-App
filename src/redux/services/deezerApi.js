@@ -2,33 +2,43 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const deezerApi = createApi({
   reducerPath: 'deezerApi',
+  // Use your new Vercel proxy URL as the base URL.
+  // The '/api/deezer' part is your serverless function route.
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://api.codetabs.com/v1/proxy/?quest=https://api.deezer.com/',
+    baseUrl: 'https://deezer-proxy-arfin.vercel.app/api/deezer',
   }),
   endpoints: (builder) => ({
     getTopCharts: builder.query({
-      query: () => 'chart',
+      // Pass the Deezer path as the 'path' query parameter to your proxy
+      query: () => '?path=chart',
     }),
     getSongsByGenre: builder.query({
-      query: (genreId) => `editorial/${genreId}/charts`,
+      // Dynamically add the genreId to the 'path' query parameter
+      query: (genreId) => `?path=editorial/${genreId}/charts`,
     }),
     getSongsByCountry: builder.query({
-      query: (countryId) => `editorial/${countryId}/charts`,
+      // Dynamically add the countryId to the 'path' query parameter
+      query: (countryId) => `?path=editorial/${countryId}/charts`,
     }),
     getSongsBySearch: builder.query({
-      query: (searchTerm) => `search?q=${encodeURIComponent(searchTerm)}`,
+      // Dynamically add the searchTerm, properly encoded, to the 'path' query parameter
+      query: (searchTerm) => `?path=search?q=${encodeURIComponent(searchTerm)}`,
     }),
     getArtistDetails: builder.query({
-      query: (artistId) => `artist/${artistId}`,
+      // Dynamically add the artistId to the 'path' query parameter
+      query: (artistId) => `?path=artist/${artistId}`,
     }),
     getArtistTopTracks: builder.query({
-      query: (artistId) => `artist/${artistId}/top?limit=10`,
+      // Dynamically add the artistId and limit to the 'path' query parameter
+      query: (artistId) => `?path=artist/${artistId}/top?limit=10`,
     }),
     getSongDetails: builder.query({
-      query: (songid) => `track/${songid}`,
+      // Dynamically add the songid to the 'path' query parameter
+      query: (songid) => `?path=track/${songid}`,
     }),
     getSongRelated: builder.query({
-      query: (songid) => `track/${songid}/related`,
+      // Dynamically add the songid to the 'path' query parameter
+      query: (songid) => `?path=track/${songid}/related`,
     }),
   }),
 });
