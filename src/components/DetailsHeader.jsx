@@ -11,7 +11,7 @@ const DetailsHeader = ({ artistId, artistData, songData }) => (
         src={
           artistId
             ? artistData?.picture_big
-            : songData?.album?.cover_big || songData?.artist?.picture_big || 'https://via.placeholder.com/250x250?text=No+Image'
+            : songData?.album?.cover_big || songData?.artist?.picture_big
         }
         className="sm:w-48 w-28 sm:h-48 h-28 rounded-full object-cover border-2 shadow-xl shadow-black"
       />
@@ -20,7 +20,6 @@ const DetailsHeader = ({ artistId, artistData, songData }) => (
         <p className="font-bold sm:text-3xl text-xl text-white">
           {artistId ? artistData?.name : songData?.title}
         </p>
-
         {!artistId && (
           <Link to={`/artists/${songData?.artist?.id}`}>
             <p className="text-base text-gray-400 mt-2">
@@ -29,11 +28,11 @@ const DetailsHeader = ({ artistId, artistData, songData }) => (
           </Link>
         )}
 
-        {!artistId && (
-          <p className="text-base text-gray-400 mt-2">
-            {songData?.album?.title}
-          </p>
-        )}
+        {/* <p className="text-base text-gray-400 mt-2">
+          {artistId
+            ? artistData?.genre_id
+            : songData?.album?.title}
+        </p> */}
       </div>
     </div>
 
