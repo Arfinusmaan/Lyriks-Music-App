@@ -34,7 +34,7 @@ const App = () => {
           className="px-6 h-[calc(100vh-72px)] overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col"
         >
           <div className="flex-1 h-fit pb-40">
-            <div className="xl:sticky relative top-0 h-fit">
+            <div className="xl:sticky relative top-0 h-fit animate-slideup">
                <TopPlay />
             </div>
             <Routes>
