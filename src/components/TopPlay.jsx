@@ -46,14 +46,14 @@ const TopPlay = ({ scrollRef }) => {
 
   const divRef = useRef(null);
 
-  useEffect(() => {
-    if (scrollRef?.current && divRef?.current) {
-      scrollRef.current.scrollTo({
-        top: divRef.current.offsetTop,
-        behavior: 'smooth',
-      });
-    }
-  });
+  // useEffect(() => {
+  //   if (scrollRef?.current && divRef?.current) {
+  //     scrollRef.current.scrollTo({
+  //       top: divRef.current.offsetTop,
+  //       behavior: 'smooth',
+  //     });
+  //   }
+  // });
 
   const topTracks = data?.tracks?.data?.slice(0, 5);
   const topArtists = data?.artists?.data?.slice(0, 10);
