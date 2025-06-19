@@ -39,14 +39,20 @@ const TopChartCard = ({ track, i, isPlaying, activeSong, handlePauseClick, handl
   </div>
 );
 
-const TopPlay = () => {
+const TopPlay = ({ scrollRef }) => {
   const dispatch = useDispatch();
   const { activeSong, isPlaying } = useSelector((state) => state.player);
   const { data, isFetching, error } = useGetTopChartsQuery();
 
   const divRef = useRef(null);
+
   useEffect(() => {
-    divRef?.current?.scrollIntoView({ behavior: 'smooth' });
+    if (scrollRef?.current && divRef?.current) {
+      scrollRef.current.scrollTo({
+        top: divRef.current.offsetTop,
+        behavior: 'smooth',
+      });
+    }
   }, []);
 
   const topTracks = data?.tracks?.data?.slice(0, 5);
@@ -65,7 +71,10 @@ const TopPlay = () => {
   if (error) return <p className="text-red-500">Failed to load Top Charts</p>;
 
   return (
-    <div ref={divRef} className="xl:ml-6 ml-0 xl:mb-0 mb-6 flex-1 xl:max-w-[500px] max-w-full flex flex-col">
+    <div
+      ref={divRef}
+      className="xl:ml-6 ml-0 xl:mb-0 mb-6 flex-1 xl:max-w-[500px] max-w-full flex flex-col"
+    >
       <div className="w-full flex flex-col">
         <div className="flex flex-row justify-between items-center">
           <h2 className="text-white font-bold text-2xl">Top Charts</h2>
