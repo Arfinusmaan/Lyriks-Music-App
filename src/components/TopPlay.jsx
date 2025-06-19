@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -6,7 +6,7 @@ import { FreeMode } from 'swiper';
 
 import PlayPause from './PlayPause';
 import { playPause, setActiveSong } from '../redux/features/playerSlice';
-import { useGetTopChartsQuery } from '../redux/services/deezerApi'; // still named shazamCore.js
+import { useGetTopChartsQuery } from '../redux/services/deezerApi';
 
 import 'swiper/css';
 import 'swiper/css/free-mode';
@@ -43,24 +43,12 @@ const TopPlay = ({ scrollRef }) => {
   const dispatch = useDispatch();
   const { activeSong, isPlaying } = useSelector((state) => state.player);
   const { data, isFetching, error } = useGetTopChartsQuery();
-
   const divRef = useRef(null);
-
-  // useEffect(() => {
-  //   if (scrollRef?.current && divRef?.current) {
-  //     scrollRef.current.scrollTo({
-  //       top: divRef.current.offsetTop,
-  //       behavior: 'smooth',
-  //     });
-  //   }
-  // });
 
   const topTracks = data?.tracks?.data?.slice(0, 5);
   const topArtists = data?.artists?.data?.slice(0, 10);
 
-  const handlePauseClick = () => {
-    dispatch(playPause(false));
-  };
+  const handlePauseClick = () => dispatch(playPause(false));
 
   const handlePlayClick = (track, i) => {
     dispatch(setActiveSong({ song: track, data: topTracks, i }));

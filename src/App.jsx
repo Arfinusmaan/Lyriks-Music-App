@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
-import { Route, Routes } from 'react-router-dom';
-import { useRef } from 'react';
+import { Route, Routes, useLocation } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
 
 import { Searchbar, Sidebar, MusicPlayer, TopPlay } from './components';
 import {
@@ -15,7 +15,14 @@ import {
 
 const App = () => {
   const { activeSong } = useSelector((state) => state.player);
-  const scrollRef = useRef(null); // Ref for scrollable container
+  const scrollRef = useRef(null);
+  const location = useLocation();
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTo({ top: 0, behavior: 'auto' });
+    }
+  }, [location]);
 
   return (
     <div className="relative flex">
@@ -25,7 +32,7 @@ const App = () => {
 
         <div
           ref={scrollRef}
-          className="px-6 h-[calc(100vh-72px)] overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col-reverse"
+          className="px-6 h-[calc(100vh-72px)] overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col"
         >
           <div className="flex-1 h-fit pb-40">
             <Routes>
