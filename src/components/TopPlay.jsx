@@ -53,7 +53,7 @@ const TopPlay = ({ scrollRef }) => {
         behavior: 'smooth',
       });
     }
-  }, []);
+  });
 
   const topTracks = data?.tracks?.data?.slice(0, 5);
   const topArtists = data?.artists?.data?.slice(0, 10);
