@@ -1,11 +1,27 @@
 import { useSelector } from 'react-redux';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
+import { useRef, useEffect } from 'react';
 
 import { Searchbar, Sidebar, MusicPlayer, TopPlay } from './components';
-import { ArtistDetails, TopArtists, AroundYou, Discover, Search, SongDetails, TopCharts } from './pages';
- 
+import {
+  ArtistDetails,
+  TopArtists,
+  AroundYou,
+  Discover,
+  Search,
+  SongDetails,
+  TopCharts,
+} from './pages';
+
 const App = () => {
   const { activeSong } = useSelector((state) => state.player);
+  const location = useLocation();
+  const scrollRef = useRef(null);
+
+  // 🔁 Scroll to top of app content when route changes
+  useEffect(() => {
+    scrollRef.current?.scrollTo({ top: 0, behavior: 'auto' });
+  }, [location]);
 
   return (
     <div className="relative flex">
@@ -13,8 +29,14 @@ const App = () => {
       <div className="flex-1 flex flex-col bg-gradient-to-br from-black to-[#121286]">
         <Searchbar />
 
-        <div className="px-6 h-[calc(100vh-72px)] overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col-reverse">
+        <div
+          ref={scrollRef}
+          className="px-6 h-[calc(100vh-72px)] overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col"
+        >
           <div className="flex-1 h-fit pb-40">
+            <div className="xl:sticky relative top-0 h-fit">
+               <TopPlay />
+            </div>
             <Routes>
               <Route path="/" element={<Discover />} />
               <Route path="/top-artists" element={<TopArtists />} />
@@ -25,6 +47,7 @@ const App = () => {
               <Route path="/search/:searchTerm" element={<Search />} />
             </Routes>
           </div>
+
           <div className="xl:sticky relative top-0 h-fit">
             <TopPlay />
           </div>
