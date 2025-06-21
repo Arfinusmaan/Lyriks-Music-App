@@ -18,7 +18,6 @@ const App = () => {
   const location = useLocation();
   const scrollRef = useRef(null);
 
-  // 🔁 Scroll to top of app content when route changes
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: 0, behavior: 'auto' });
   }, [location]);
@@ -33,10 +32,13 @@ const App = () => {
           ref={scrollRef}
           className="px-6 h-[calc(100vh-72px)] overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col"
         >
-          <div className="flex-1 h-fit pb-40">
-            <div className="xl:sticky relative top-0 h-fit animate-slideup">
-               <TopPlay />
-            </div>
+          {/* TopPlay sits above content on mobile, right on desktop */}
+          <div className="xl:sticky relative top-0 h-fit xl:max-w-[500px] w-full order-1 xl:order-2">
+            <TopPlay />
+          </div>
+
+          {/* Main Routes */}
+          <div className="flex-1 h-fit pb-40 order-2 xl:order-1">
             <Routes>
               <Route path="/" element={<Discover />} />
               <Route path="/top-artists" element={<TopArtists />} />
@@ -47,7 +49,6 @@ const App = () => {
               <Route path="/search/:searchTerm" element={<Search />} />
             </Routes>
           </div>
-
         </div>
       </div>
 
